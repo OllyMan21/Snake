@@ -53,6 +53,7 @@ export class Engine {
                     // pauses and unpauses the game
                     this.paused = !this.paused;
                     this.gamePause();
+                    break;
                 case "w":
                     this.snake.setDir(Direction.Up);
                     break;
