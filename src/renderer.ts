@@ -83,21 +83,26 @@ export class Renderer {
             const stepSize = (this.viewWidth - lineWidth) / (this.gridSizeX);
 
             gridLine.lineStyle({ color: 0x555555, width: lineWidth });
-            gridLine.moveTo(i * stepSize + lineWidth * 0.5, this.viewWidth);
+            gridLine.moveTo(i * stepSize + lineWidth * 0.5, this.viewHeight);
             gridLine.lineTo(i * stepSize + lineWidth * 0.5, 0);
 
             this.gridGraphic.addChild(gridLine);
         }
 
-        for (let i = 0; i <= this.gridSizeX; ++i) {
+        for (let i = 0; i <= this.gridSizeY; ++i) {
             let gridLine = new PIXI.Graphics();
+            const stepSize = (this.viewHeight - lineWidth) / (this.gridSizeY);
 
             gridLine.lineStyle({ color: 0x555555, width: lineWidth });
-            const stepSize = (this.viewHeight - lineWidth) / (this.gridSizeY);
-            gridLine.moveTo(this.viewHeight, i * stepSize + lineWidth * 0.5);
+            gridLine.moveTo(this.viewWidth, i * stepSize + lineWidth * 0.5);
             gridLine.lineTo(0, i * stepSize + lineWidth * 0.5);
 
             this.gridGraphic.addChild(gridLine);
         }
+    }
+
+    destroy() {
+        document.body.removeChild(this.app.view);
+        this.app.destroy();
     }
 }
