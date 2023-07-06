@@ -21,6 +21,7 @@ export class Engine {
 
     renderer: Renderer;
 
+    frame: number = 0;
     elapsedTime: number = 0;
     deltaTick: number = 0;
 
@@ -137,10 +138,18 @@ export class Engine {
     }
 
     gameLoop(timeStamp: number) {
+        this.frame += 1;
         this.deltaTick += timeStamp - this.elapsedTime;
         this.elapsedTime = timeStamp;
 
+        // make sure that we don't skip at the start of the game
+        if (this.frame == 0 || this.frame == 1) {
+            this.deltaTick = 0;
+        }
+
+        // set the tick per second (how many cells snake moves per second)
         let tps = 5;
+
         let frameTime = 1000 / tps;
 
         if (this.deltaTick > frameTime) {
