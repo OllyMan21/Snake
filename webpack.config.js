@@ -17,10 +17,11 @@ module.exports = {
     ],
     module: {
         rules: [
+            { test: /\.css$/, use: ['style-loader', 'css-loader'], },
+            { test: /\.ts$/, use: 'ts-loader' },
             {
-                test: /\.tsx?$/,
-                use: 'ts-loader',
-                exclude: /node_modules/,
+                test: /\.(woff|woff2|eot|ttf|otf)$/i,
+                type: 'asset/resource',
             },
         ],
     },

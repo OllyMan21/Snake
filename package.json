@@ -23,6 +23,8 @@
     "webpack-dev-server": "^4.15.1"
   },
   "dependencies": {
+    "@types/fontfaceobserver": "^2.1.0",
+    "fontfaceobserver": "^2.3.0",
     "lodash": "^4.17.21",
     "pixi.js": "^7.2.4"
   }

@@ -17,6 +17,8 @@ export class Engine {
     snake: Snake;
     apple: Coord;
 
+    score: number = 0;
+
     renderer: Renderer;
 
     elapsedTime: number = 0;
@@ -25,9 +27,9 @@ export class Engine {
     constructor(gridSizeX: number, gridSizeY: number, menu: Menu) {
         this.menu = menu;
 
-        // constrain grid dimensions to be at least 4 for fair gameplay and at most 1024 to keep well within reasonable memory requirements
-        gridSizeX = Math.min(Math.max(gridSizeX, 4), 1024);
-        gridSizeY = Math.min(Math.max(gridSizeY, 4), 1024);
+        // constrain grid dimensions to be at least 4 for fair gameplay and at most 100 to keep well within reasonable graphical and memory requirements
+        gridSizeX = Math.min(Math.max(gridSizeX, 4), 100);
+        gridSizeY = Math.min(Math.max(gridSizeY, 4), 100);
 
         this.grid = new Grid(gridSizeX, gridSizeY);
 
@@ -138,7 +140,7 @@ export class Engine {
         this.deltaTick += timeStamp - this.elapsedTime;
         this.elapsedTime = timeStamp;
 
-        let tps = 15;
+        let tps = 5;
         let frameTime = 1000 / tps;
 
         if (this.deltaTick > frameTime) {
@@ -165,6 +167,8 @@ export class Engine {
             }
             // if snake has eaten an apple
             else if (snake.head.coord.x == this.apple.x && snake.head.coord.y == this.apple.y) {
+                this.score += 1;
+
                 // register the new occupied cell in the grid state
                 this.grid.state[this.snake.head.coord.x][this.snake.head.coord.y] = true;
 
@@ -211,10 +215,19 @@ export class Engine {
     }
 
     endGame() {
-        this.renderer.destroy();
+        let playAgain = () => {
+            this.renderer.destroy();
+            this.menu.createGame(this.grid.sizeX, this.grid.sizeY, false);
+            this.menu.destroyGame();
+        }
 
-        this.menu.toggleVisible();
-        this.menu.destroyGame();
+        let returnToMenu = () => {
+            this.renderer.destroy();
+            this.menu.toggleVisible();
+            this.menu.destroyGame();
+        }
+
+        this.renderer.drawGameOverOverlay(playAgain.bind(this), returnToMenu.bind(this), this.score);
     }
 
     generateApple() {
