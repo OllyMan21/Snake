@@ -2,3 +2,37 @@
     font-family: Bruce Forever;
     src: url(./assets/fonts/BruceForever.ttf);
   }
+
+  .body {
+    background-color: #444444;
+    padding: 0;
+    margin: 0;
+  }
+
+  .menu {
+    font-family: Bruce Forever;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+  }
+  
+  .menu h1 {
+    text-align: center;
+  }
+  
+  .menu button {
+    font-family: Bruce Forever;
+    margin: auto;
+    margin-top: 20vh;
+    width: fit-content;
+    padding: 0;
+  }
+  
+  .inputs {
+    margin: auto;
+    margin-top: 0vh;
+  }
+  
+  .inputs input {
+    width: 20vh;
+  }

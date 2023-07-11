@@ -33,6 +33,11 @@ export class Renderer {
         // create a PixiJS app
         this.app = new PIXI.Application<HTMLCanvasElement>({ width: this.viewWidth, height: this.viewHeight });
         document.body.appendChild(this.app.view);
+        
+        this.app.view.style.position = 'absolute';
+        this.app.view.style.left = '50%';
+        this.app.view.style.top = '50%';
+        this.app.view.style.transform = 'translate3d( -50%, -50%, 0 )';
 
         this.snakeGraphic = new PIXI.Container();
         this.appleGraphic = new PIXI.Container();
@@ -200,7 +205,7 @@ export class Renderer {
         });
 
         button.beginFill(0x444444);
-        button.lineStyle({width: 5, color: 0x000000, alignment: 1});
+        button.lineStyle({ width: 5, color: 0x000000, alignment: 1 });
         button.drawRoundedRect(-t.width / 2, -t.height / 2, t.width, t.height, 10);
 
         console.log(buttonContainer.toGlobal(button.position));
